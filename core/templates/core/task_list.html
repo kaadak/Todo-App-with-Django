@@ -1,0 +1,23 @@
+<h1>Todo List</h1>
+
+<a href="{% url 'task-create' %}">Create Todo</a>
+
+{% for task in tasks %}
+    <div>
+      
+        <h3>{{forloop.counter}} {{ task.title }}</h3>
+
+        {% if task.complete %}
+            ✅ Completed
+        {% else %}
+            ❌ Not completed
+        {% endif %}
+
+        <a href="{% url 'task-detail' task.id %}">See Details</a>
+        <a href="{% url 'task-update' task.id %}">Edit</a>
+        <a href="{% url 'task-delete' task.id %}">Delete</a>
+    </div>
+{% empty %}
+    <h3>No tasks found.</h3>
+{% endfor %}
+

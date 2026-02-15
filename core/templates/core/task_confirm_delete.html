@@ -1,0 +1,11 @@
+<h1>Task Delete</h1>
+<p>Are you sure you want to delete</p>
+
+<form method='post'>
+
+    {% csrf_token %}
+
+    <button type='sumbit'>Are you Sure</button>
+</form>
+
+<a href="{% url 'tasks' %}">No</a>
