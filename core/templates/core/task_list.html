@@ -1,5 +1,7 @@
+
 <h1>Todo List</h1>
 
+<a href="{% url 'login' %}">Logout</a>
 <a href="{% url 'task-create' %}">Create Todo</a>
 
 {% for task in tasks %}
