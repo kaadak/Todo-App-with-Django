@@ -1,5 +1,8 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block main %}
 
-<h1>Welcome {{request.user}}</h1>
+<h1 class='bg-amber-700 p-4 font-bold text-white'>Welcome {{request.user}}</h1>
 <h1>Todo List</h1>
 
 <form method='post' action="{% url 'logout' %}">
@@ -31,3 +34,4 @@
     <h3>No tasks found.</h3>
 {% endfor %}
 
+{% endblock %}
