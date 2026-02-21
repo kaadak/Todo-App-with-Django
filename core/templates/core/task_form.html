@@ -1,11 +1,88 @@
-<h1>Create Task <h1>
+{% extends 'base.html' %}
+{% load static %}
+{% block main %}
 
-<form method='POST' >
-     {% csrf_token %} 
+<div class="w-full max-w-lg mx-auto my-10 animate-fade-in">
+    <div class="mb-8 text-center">
+        <h1 class="text-3xl font-black text-white tracking-tight italic">
+            {% if form.instance.id %}Update Task{% else %}Create Task{% endif %}
+        </h1>
+        <p class="text-gray-400 mt-2">Set your goals and crush them.</p>
+    </div>
 
-    {{form.as_p}}
+    <div class="bg-white/10 backdrop-blur-2xl rounded-[2rem] border border-white/20 shadow-2xl p-8 md:p-10">
+        
+        <form method='POST' class="space-y-6 custom-django-form">
+            {% csrf_token %} 
 
-    <input type='submit' value="Submit" />
-</form>
+            <div class="text-gray-200">
+                {{ form.as_p }}
+            </div>
 
-<a href="{% url 'tasks' %}"></a>
+            <div class="pt-4 flex flex-col gap-4">
+                <button type='submit' class="w-full bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-500 hover:to-violet-500 text-white font-bold py-4 rounded-2xl shadow-xl shadow-indigo-500/20 transition-all transform hover:scale-[1.02] active:scale-95">
+                    Save Task
+                </button>
+                
+                <a href="{% url 'tasks' %}" class="w-full text-center text-gray-400 hover:text-white font-medium py-2 transition-colors">
+                    Cancel and Go Back
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<style>
+    /* Styling the Django-generated 'as_p' elements */
+    .custom-django-form p {
+        margin-bottom: 1.5rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .custom-django-form label {
+        font-size: 0.875rem;
+        font-weight: 600;
+        color: #9ca3af; /* gray-400 */
+        margin-left: 0.5rem;
+    }
+
+    .custom-django-form input[type="text"],
+    .custom-django-form textarea,
+    .custom-django-form select {
+        width: 100%;
+        background-color: rgba(0, 0, 0, 0.3);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 1rem;
+        padding: 0.75rem 1rem;
+        color: white;
+        transition: all 0.3s ease;
+    }
+
+    .custom-django-form input:focus,
+    .custom-django-form textarea:focus {
+        outline: none;
+        border-color: #6366f1; /* indigo-500 */
+        background-color: rgba(0, 0, 0, 0.5);
+        box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
+    }
+
+    /* Styling the Checkbox specifically */
+    .custom-django-form input[type="checkbox"] {
+        width: 1.25rem;
+        height: 1.25rem;
+        accent-color: #6366f1;
+        cursor: pointer;
+    }
+
+    @keyframes fade-in {
+        from { opacity: 0; transform: scale(0.95); }
+        to { opacity: 1; transform: scale(1); }
+    }
+    .animate-fade-in {
+        animation: fade-in 0.3s ease-out forwards;
+    }
+</style>
+
+{% endblock %}

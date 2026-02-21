@@ -24,7 +24,21 @@ class TaskList(LoginRequiredMixin, ListView):
     context_object_name = 'tasks'
 
     def get_queryset(self):
-        return Task.objects.filter(user=self.request.user)
+        queryset = Task.objects.filter(user=self.request.user)
+
+        search_input = self.request.GET.get('search-area') or ''
+        if search_input:
+            queryset = queryset.filter(title__startswith=search_input)
+
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        context['count'] = context['tasks'].filter(complete=False).count()
+        context['search_input'] = self.request.GET.get('search-area') or ''
+
+        return context
 
 @method_decorator(never_cache, name='dispatch')
 class TaskDetail(LoginRequiredMixin, DetailView):

@@ -1,12 +1,99 @@
-<h1>Register</h1>
+{% extends 'base.html' %}
+{% load static %}
+{% block main %}
 
-<form method='post'>
+<div class="w-full max-w-md mx-auto my-10 animate-fade-in">
+    <div class="text-center mb-10">
+        <div class="inline-flex items-center justify-center w-16 h-16 bg-emerald-600 rounded-2xl -rotate-6 mb-4 shadow-lg shadow-emerald-500/40">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-white rotate-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
+            </svg>
+        </div>
+        <h1 class="text-4xl font-black text-white tracking-tighter">Join Us</h1>
+        <p class="text-gray-400 mt-2">Start organizing your life today.</p>
+    </div>
 
-    {% csrf_token %}
+    <div class="bg-white/10 backdrop-blur-2xl rounded-[2.5rem] border border-white/20 shadow-2xl p-8 md:p-10">
+        
+        <form method='post' class="space-y-6 custom-django-form">
+            {% csrf_token %}
 
-    {{form.as_p}}
+            <div class="text-gray-200">
+                {{ form.as_p }}
+            </div>
 
-    <button type='submit'>Register</button>
-</form>
+            <button type='submit' class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-4 rounded-2xl shadow-xl shadow-emerald-900/40 transition-all transform hover:scale-[1.02] active:scale-95">
+                Create Account
+            </button>
+        </form>
 
-<a href={% url 'login' %}>Login</a>
+        <div class="mt-8 pt-6 border-t border-white/10 text-center">
+            <p class="text-gray-400 text-sm">
+                Already have an account? 
+                <a href="{% url 'login' %}" class="text-emerald-400 font-bold hover:underline ml-1">Login here</a>
+            </p>
+        </div>
+    </div>
+</div>
+
+<style>
+    /* Targeting Django's form fields */
+    .custom-django-form p {
+        margin-bottom: 1rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.4rem;
+    }
+
+    /* Help text for password requirements (standard in Django UserCreationForm) */
+    .custom-django-form .helptext {
+        font-size: 0.75rem;
+        color: #6b7280; /* gray-500 */
+        margin-top: 0.25rem;
+        line-height: 1.2;
+    }
+
+    .custom-django-form label {
+        font-size: 0.8rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        color: #34d399; /* emerald-400 */
+        margin-left: 0.25rem;
+    }
+
+    .custom-django-form input {
+        width: 100%;
+        background-color: rgba(0, 0, 0, 0.4);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 1rem;
+        padding: 0.85rem 1rem;
+        color: white;
+        transition: all 0.3s ease;
+    }
+
+    .custom-django-form input:focus {
+        outline: none;
+        border-color: #34d399;
+        background-color: rgba(0, 0, 0, 0.6);
+        box-shadow: 0 0 0 4px rgba(52, 211, 153, 0.15);
+    }
+
+    /* Styling the list of requirements if Django shows them */
+    .custom-django-form ul {
+        list-style: disc;
+        margin-left: 1.25rem;
+        font-size: 0.7rem;
+        color: #6b7280;
+    }
+
+    @keyframes fade-in {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    .animate-fade-in {
+        animation: fade-in 0.5s ease-out forwards;
+    }
+</style>
+
+{% endblock %}

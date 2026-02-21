@@ -4,11 +4,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="{% static '../../static/src/output.css' %}" rel="stylesheet">
+  
+  <link href="{% static 'src/output.css' %}" rel="stylesheet">
 </head>
-<body>
- {% block main %}
+<body class="min-h-screen px-5 bg-gradient-to-br flex justify-center items-center from-gray-900 via-gray-800 to-gray-900">
+ 
+  {% block main %}
+
+
 
  {% endblock %}
+
 </body>
 </html>

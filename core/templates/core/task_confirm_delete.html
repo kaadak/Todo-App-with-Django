@@ -1,11 +1,58 @@
-<h1>Task Delete</h1>
-<p>Are you sure you want to delete</p>
+{% extends 'base.html' %}
+{% load static %}
+{% block main %}
 
-<form method='post'>
+<div class="w-full max-w-md mx-auto my-10 animate-shake">
+    
+    <div class="bg-white/10 backdrop-blur-2xl rounded-[2.5rem] border border-red-500/20 shadow-2xl overflow-hidden text-center p-10">
+        
+        <div class="mx-auto w-20 h-20 bg-red-500/20 rounded-full flex items-center justify-center mb-6 border border-red-500/30">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+            </svg>
+        </div>
 
-    {% csrf_token %}
+        <h1 class="text-2xl font-black text-white mb-2 italic tracking-tight">Delete Task?</h1>
+        
+        <p class="text-gray-400 mb-8 leading-relaxed">
+            Are you sure you want to permanently delete <br>
+            <span class="text-red-400 font-bold">"{{ task.title }}"</span>? <br>
+            This action cannot be undone.
+        </p>
 
-    <button type='sumbit'>Are you Sure</button>
-</form>
+        <form method='post' class="space-y-3">
+            {% csrf_token %}
+            <button type='submit' class="w-full bg-red-600 hover:bg-red-500 text-white font-bold py-4 rounded-2xl shadow-lg shadow-red-900/40 transition-all transform hover:scale-[1.02] active:scale-95">
+                Yes, Delete Task
+            </button>
+            
+            <a href="{% url 'tasks' %}" class="block w-full text-gray-400 hover:text-white font-medium py-2 transition-colors">
+                No, Keep it
+            </a>
+        </form>
+    </div>
+</div>
 
-<a href="{% url 'tasks' %}">No</a>
+<style>
+    /* A subtle "warning" entrance animation */
+    @keyframes shake {
+        0%, 100% { transform: translateX(0); }
+        25% { transform: translateX(-5px); }
+        75% { transform: translateX(5px); }
+    }
+    
+    .animate-shake {
+        animation: shake 0.4s cubic-bezier(.36,.07,.19,.97) both;
+    }
+
+    @keyframes fade-in {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+    
+    .animate-shake {
+        animation: fade-in 0.3s ease-out, shake 0.4s cubic-bezier(.36,.07,.19,.97) both;
+    }
+</style>
+
+{% endblock %}
